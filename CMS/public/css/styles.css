@@ -1,0 +1,10 @@
+.patientsThumb
+{
+    width: 200px;
+}
+textarea{
+    height: 120px !important;
+}
+.editPatientsEmage{
+    border: 1px solid gray;
+}
