@@ -11,4 +11,8 @@ class Patient extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public function fromdr()
+    {
+        return $this->belongsTo('App\FromDr');
+    }
 }

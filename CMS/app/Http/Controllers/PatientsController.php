@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\FromDr;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -41,6 +42,7 @@ class PatientsController extends Controller
      */
     public function create ()
     {
+        $fromdrs =FromDr::lists('name','id');
         return view('patients.create');
     }
 
