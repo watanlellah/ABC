@@ -38,7 +38,7 @@
                                 <th>diagnose</th>
                                 <th>report</th>
                                 <th>image</th>
-                                <th>View</th>
+                                <th>Created By</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
                             </tr>
@@ -56,7 +56,7 @@
                                 <td>{{$patient->report}}</td>
                                 <td> <img class= "img-responsive patientsThumb" src="{{$patient->image}}"></td>
                                 {{--<td>{{$patient->user_patient->id}}</td>--}}
-                                {{--<td>{{$patient->user->i1d}}</td>--}}
+                                <td>{{$patient->user->name}}</td>
                                 <td>
                                     {!!Form::open(['method'=>'DElETE','route'=>['patients.destroy',$patient->id]]) !!}
                                     {!! Form::submit('DELETE',['class'=>'btn btn-danger']) !!}

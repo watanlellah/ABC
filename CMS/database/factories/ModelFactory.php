@@ -37,7 +37,7 @@ $factory->define(App\Order::class, function (Faker\Generator $faker) {
         'cache_in' => $faker->randomFloat($nbMaxDecimals = 2, $min = 0, $max = NULL),
         'payment' => $faker->randomFloat($nbMaxDecimals = 2, $min = 0, $max = NULL),
         'Change' => $faker->randomFloat($nbMaxDecimals = 2, $min = 0, $max = NULL),
-        'patient_id' => $faker->numberBetween($min = 1, $max = 1000),
+        'patient_id' => $faker->numberBetween($min = 1, $max = 100),
     ];
 });
 $factory->define(App\Patient::class, function (Faker\Generator $faker) {
@@ -52,6 +52,8 @@ $factory->define(App\Patient::class, function (Faker\Generator $faker) {
         'report' =>$faker-> text($maxNbChars = 200),
         'status' =>$faker->boolean,
         'image' =>$faker->imageUrl($width = 640, $height = 480),
+        'user_id' => $faker->numberBetween($min = 1, $max = 100),
+        'fromdr_id' => $faker->numberBetween($min = 1, $max = 100),
 
     ];
 });
@@ -60,23 +62,15 @@ $factory->define(App\Subscryption::class, function (Faker\Generator $faker) {
         'name' => $faker->name,
         'fee' => $faker->randomFloat($nbMaxDecimals = 2, $min = 0, $max = NULL),
         'user_id' => $faker->numberBetween($min = 1, $max = 100),
-        'patient_id' => $faker->numberBetween($min = 1, $max = 1000),
-    ];
-});
-$factory->define(App\UserPatient::class, function (Faker\Generator $faker) {
-    return [
-        'diagnose' => $faker->name,
-        'report' => $faker->name,
-        'user_id' => $faker->numberBetween($min = 1, $max = 100),
-        'patient_id' => $faker->numberBetween($min = 1, $max = 1000),
+        'patient_id' => $faker->numberBetween($min = 1, $max = 100),
     ];
 });
 
 $factory->define(App\PatientSubscryption::class, function (Faker\Generator $faker) {
     return [
 
-        'patient_id' => $faker->numberBetween($min = 1, $max = 1000),
-        'subscryption_id' => $faker->numberBetween($min = 1, $max = 1000),
+        'patient_id' => $faker->numberBetween($min = 1, $max = 100),
+        'subscryption_id' => $faker->numberBetween($min = 1, $max = 100),
     ];
 });
 
@@ -96,8 +90,8 @@ $factory->define(App\PatientSubscryption::class, function (Faker\Generator $fake
 });
 $factory->define(App\OrderUser::class, function (Faker\Generator $faker) {
     return [
-        'report' =>$faker-> text($maxNbChars = 200),
-        'order_id' => $faker->numberBetween($min = 1, $max = 1000),
-        'user_id' => $faker->numberBetween($min = 1, $max = 10),
+        'report' =>$faker-> text($maxNbChars = 100),
+        'order_id' => $faker->numberBetween($min = 1, $max = 100),
+        'user_id' => $faker->numberBetween($min = 1, $max = 100),
     ];
 });

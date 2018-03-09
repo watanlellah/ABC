@@ -25,6 +25,10 @@ class CreatePatientsTable extends Migration
             $table->boolean  ('status');
             $table->text('image');
             $table->timestamps();
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->integer('fromdr_id')->unsigned();
+            $table->foreign('fromdr_id')->references('id')->on('fromdrs');
         });
     }
 

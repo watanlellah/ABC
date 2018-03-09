@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Patient;
+use App\FromDr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -17,10 +17,10 @@ class FromDrsController extends Controller
      *
      * @return void
      */
-//    public function __construct ()
-//    {
-//        $this->middleware('auth');
-//    }
+    public function __construct ()
+    {
+        $this->middleware('auth');
+    }
 
     /**
      * Display a listing of the resource.
@@ -30,7 +30,7 @@ class FromDrsController extends Controller
 
     public function index ()
     {
-        $fromdrs = Patient::paginate(3);
+        $fromdrs = FromDr::paginate(3);
         return view('fromdrs.fromdrs', compact('fromdrs'));
     }
 
@@ -69,7 +69,7 @@ class FromDrsController extends Controller
             $input['image'] ='images/default.jpg';
         }
         $input['user_id' ]=Auth::user()->id;
-        Patient::create($input);
+        FromDr::create($input);
         return redirect()->back();
     }
     public function upload ($file)
@@ -107,7 +107,7 @@ class FromDrsController extends Controller
      */
     public function edit($id)
     {
-        $fromdrs =Patient::findOrfail($id);
+        $fromdrs =FromDr::findOrfail($id);
         return view('fromdrs.edit', compact('fromdrs'));
     }
 
@@ -133,7 +133,7 @@ class FromDrsController extends Controller
 
         }
         $input['user_id' ]=Auth::user()->id;
-        Patient::findOrFail($id)->update($input);
+        FromDr::findOrFail($id)->update($input);
         return redirect()->back();
     }
 
@@ -145,7 +145,7 @@ class FromDrsController extends Controller
      */
     public function destroy($id)
     {
-        $fromdrs =Patient::findOrfail($id)->delete();
+        $fromdrs =FromDr::findOrfail($id)->delete();
         return redirect()->back();
 
     }

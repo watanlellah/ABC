@@ -22,23 +22,20 @@
         <div class="row">
             <div class="col-lg-12">
            <div class="panel panel-default">
-                <div class="panel-heading">New Patients</div>
+                <div class="panel-heading">New fromdrs</div>
                     <div class="panel-body">
-                    {!! Form::open(array('route' => 'patients.store', 'enctype' => 'multipart/form-data','file'=>'true' ))!!}
+                    {!! Form::open(array('route' => 'fromdrs.store', 'enctype' => 'multipart/form-data','file'=>'true' ))!!}
                     <div class="form-group col-lg-4">
                     {!! Form::text('name',null, array('required','class'=>'form-control','placeholder'=>'إسم المريض')) !!}
                     </div>
                     <div class="form-group col-lg-4">
-                    {!! Form::number('national_id',null, array('required','class'=>'form-control','placeholder'=>'رقم البطاقة الشخصية')) !!}
+                    {!! Form::number('has_cache',null, array('required','class'=>'form-control','placeholder'=>'رقم البطاقة الشخصية')) !!}
                     </div>
                     <div class="form-group col-lg-4">
-                     {!! Form::text('address',null, array('required','class'=>'form-control','placeholder'=>'العنوان')) !!}
+                     {!! Form::number('withdrawn',null, array('required','class'=>'form-control','placeholder'=>'العنوان')) !!}
                     </div>
                     <div class="form-group col-lg-4">
-                    {!! Form::date  ('birth_date',null, array('\Carbon\Carbon::now()','required','class'=>'form-control','placeholder'=>'تاريخ الميلاد')) !!}
-                    </div>
-                    <div class="form-group col-lg-4">
-                    {!! Form::text('mobile_no',null, array('class'=>'form-control','placeholder'=>'رقم الموبايل')) !!}
+                    {!! Form::number  ('net_cache',null, array('required','class'=>'form-control','placeholder'=>'تاريخ الميلاد')) !!}
                     </div>
                     <div class="form-group col-lg-4">
                     {!! Form::select('dr_in',['DR 1'=>'DR 1','DR 2'=>'DR 2','DR 3'=>'DR 3','DR 4'=>'DR 4','DR 5'=>'DR 3'],null, array('required','class'=>'form-control','placeholder'=>'الطبيب المتواجد')) !!}
