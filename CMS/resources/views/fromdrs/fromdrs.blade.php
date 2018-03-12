@@ -30,10 +30,12 @@
                             <thead>
                             <tr>
                                 <th>name</th>
-                                <th>Has Cache</th>
-                                <th>Withdraw</th>
-                                <th>Net Cache</th>
-                                <th>user Id</th>
+                                <th>has_cache</th>
+                                <th>withdrawn</th>
+                                <th>net_cache</th>
+                                <th>Created By</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -42,10 +44,8 @@
                                 <td>{{$fromdr->name}}</td>
                                 <td>{{$fromdr->has_cache}}</td>
                                 <td>{{$fromdr->withdrawn}}</td>
-                                <td>{{$fromdr->net_cache}}</td>
+                                <td>{{$fromdr->net_cache=$fromdr->has_cache-$fromdr->withdrawn}}</td>
                                 <td>{{$fromdr->user->name}}</td>
-                                {{--<td>{{$fromdr->patient->name}}</td>--}}
-                                {{--<td>{{$fromdr->user->i1d}}</td>--}}
                                 <td>
                                     {!!Form::open(['method'=>'DElETE','route'=>['fromdrs.destroy',$fromdr->id]]) !!}
                                     {!! Form::submit('DELETE',['class'=>'btn btn-danger']) !!}
@@ -63,6 +63,8 @@
                         <div class="pagibation dol-lg-12">
                             {!! $fromdrs->render() !!}
                         </div>
+                        {{"Total No of Doctors    =".$fromdrs->total()}}
+                        {{"Sum Of Total Cache   =".$fromdrs->sum('has_cache')}}
                 </div>
             </div>
         </div>

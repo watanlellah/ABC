@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\FromDr;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Http\Request;
 use App\Patient;
 use Illuminate\Support\Facades\Auth;
@@ -42,8 +43,9 @@ class PatientsController extends Controller
      */
     public function create ()
     {
+        $users = Auth::user()->name ;
         $fromdrs =FromDr::lists('name','id');
-        return view('patients.create');
+        return view('patients.create',compact('fromdrs','users'));
     }
 
     /**
@@ -71,11 +73,15 @@ class PatientsController extends Controller
             $input['image'] ='images/default.jpg';
         }
      $input['user_id' ]=Auth::user()->id;
-        Patient::create($input);
-        return redirect()->back();
+        $users = Auth::user()->name ;
+    $patients=  Patient::create($input);
+        $fromdrs =FromDr::lists('name','id');
+        return view('patients.create',compact('fromdrs','users','patients'));
     }
 public function upload ($file)
+
 {
+
     $extension = $file->getClientOriginalExtension();
     $sha1 = sha1($file->getClientOriginalName());
     $filename= time()."_".$sha1.".".$extension;
@@ -109,8 +115,10 @@ public function upload ($file)
      */
     public function edit($id)
     {
+        $users =Auth::user()->name ;
+        $fromdrs =FromDr::lists('name','id');
         $patients =Patient::findOrfail($id);
-        return view('patients.edit', compact('patients'));
+        return view('patients.edit', compact('patients','fromdrs','users'));
     }
 
     /**
@@ -135,10 +143,12 @@ public function upload ($file)
 
         }
         $input['user_id' ]=Auth::user()->id;
-        Patient::findOrFail($id)->update($input);
-        return redirect()->back();
-    }
-
+      $input=  Patient::findOrFail($id)->update($input);
+        $users =Auth::user()->name ;
+        $fromdrs =FromDr::lists('name','id');
+        $patients =Patient::findOrfail($id);
+        return view('patients.edit', compact('patients','fromdrs','users','input'));
+        }
     /**
      * Remove the specified resource from storage.
      *

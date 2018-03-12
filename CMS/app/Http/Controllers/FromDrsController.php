@@ -1,16 +1,17 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\FromDr;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Http\Request;
-use App\FromDr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 
 
-class FromDrsController extends Controller
+class fromdrsController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -41,7 +42,8 @@ class FromDrsController extends Controller
      */
     public function create ()
     {
-        return view('fromdrs.create');
+        $users = Auth::user()->name ;
+        return view('fromdrs.create',compact('users'));
     }
 
     /**
@@ -52,11 +54,11 @@ class FromDrsController extends Controller
      */
     public function store (Request $request)
     {
-        $this->validate($request, [
-
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-
-        ]);
+//        $this->validate($request, [
+//
+//            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+//
+//        ]);
         $input = $request->all();
         $user = Auth::user();
         if(isset($input['image']))
@@ -69,11 +71,14 @@ class FromDrsController extends Controller
             $input['image'] ='images/default.jpg';
         }
         $input['user_id' ]=Auth::user()->id;
-        FromDr::create($input);
-        return redirect()->back();
+        $users = Auth::user()->name ;
+        $fromdrs=  FromDr::create($input);
+         return view('fromdrs.create',compact('fromdrs','users'));
     }
     public function upload ($file)
+
     {
+
         $extension = $file->getClientOriginalExtension();
         $sha1 = sha1($file->getClientOriginalName());
         $filename= time()."_".$sha1.".".$extension;
@@ -107,8 +112,9 @@ class FromDrsController extends Controller
      */
     public function edit($id)
     {
+        $users =Auth::user()->name ;
         $fromdrs =FromDr::findOrfail($id);
-        return view('fromdrs.edit', compact('fromdrs'));
+        return view('fromdrs.edit', compact('fromdrs','users'));
     }
 
     /**
@@ -133,10 +139,11 @@ class FromDrsController extends Controller
 
         }
         $input['user_id' ]=Auth::user()->id;
-        FromDr::findOrFail($id)->update($input);
-        return redirect()->back();
+        $input=  FromDr::findOrFail($id)->update($input);
+        $users =Auth::user()->name ;
+        $fromdrs =FromDr::findOrfail($id);
+        return view('fromdrs.edit', compact('fromdrs','users','input'));
     }
-
     /**
      * Remove the specified resource from storage.
      *
